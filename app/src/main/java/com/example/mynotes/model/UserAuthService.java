@@ -34,6 +34,7 @@ public class UserAuthService {
             }
         });
     }
+
     public void resetPassUser(String email, AuthListener listener){
         fAuth.sendPasswordResetEmail(email).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -64,20 +65,20 @@ public class UserAuthService {
     }
 
     public void performFireStoreOperation(User user){
+
         String  userId = fAuth.getCurrentUser().getUid();
-       Log.d("TAG"," user id " + userId);
+        //Log.d("TAG"," user id " + userId);
         //Toast.makeText(, "user id", Toast.LENGTH_SHORT).show();
         DocumentReference documentReference = firebaseFirestore.collection("Users").document(userId);
         Map<String, Object> values = new HashMap<>();
         values.put("fName", user.getFname());
         values.put("lName", user.getLname());
         values.put("Email", user.getEmail());
-        //values.put("userId", userId);
 
         documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Log.d("TAG","onSuccess: user Profile is created"+ userId);
+             //   Log.d("TAG","onSuccess: user Profile is created"+ userId);
             }
         });
     }

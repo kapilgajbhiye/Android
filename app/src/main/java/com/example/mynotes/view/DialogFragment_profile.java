@@ -95,6 +95,7 @@ public class DialogFragment_profile extends AppCompatDialogFragment {
 
     public void userFetchingData(){
         String currentId = fUser.getUid();
+
         reference = firestore.collection("Users").document(currentId);
         reference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override

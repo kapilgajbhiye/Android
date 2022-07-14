@@ -11,20 +11,10 @@ public class Indicate {
         this.msg = msg;
         this.noteList = noteList;
     }
-
-//    public Indicate(boolean status, String msg){
-//        this.status = status;
-//        this.msg = msg;
-//
-//    }
-
     public Indicate(boolean status, String msg) {
-        this.status = status;
-        this.msg = msg;
+        this.status=status;
+        this.msg=msg;
     }
-
-//    public Indicate(Object status, Object msg) {
-//    }
 
     public ArrayList<Note> getNoteList() {
         return noteList;

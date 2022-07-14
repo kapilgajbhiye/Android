@@ -44,24 +44,33 @@
                     android:textSize="20sp" />
 
                 <ImageView
-                    android:id="@+id/imageView_pin"
-                    android:paddingTop="5dp"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
+                    android:id="@+id/imageView_pen"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="8dp"
-                    android:src="@drawable/ic_baseline_push_pin_24" />
+                    android:layout_marginEnd="10dp"
+                    android:paddingTop="5dp"
+                    android:src="@drawable/ic_baseline_more_vert_24" />
+
             </RelativeLayout>
 
-            <TextView
-                android:id="@+id/textView_notes"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLines="10"
-                android:padding="10dp"
-                android:text="Notes."
-                android:textColor="@color/black"
-                android:textStyle="normal" />
+                tools:ignore="UselessParent">
+
+                <TextView
+                    android:id="@+id/textView_notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="10"
+                    android:padding="10dp"
+                    android:text="Notes."
+                    android:textColor="@color/black"
+                    android:textStyle="normal" />
+
+
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/textView_date"

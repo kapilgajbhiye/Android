@@ -21,6 +21,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class AddNotesFragment extends Fragment {
     private EditText editText_title, editText_notes;
@@ -58,15 +59,15 @@ public class AddNotesFragment extends Fragment {
     public void checkUserDataAddInFirestore(){
         String title = editText_title.getText().toString();
         String context = editText_notes.getText().toString();
-        //String myTimestamp = firebase.firestore.Timestamp.fromDate(new Date()).Date();
+
 
         if(title.isEmpty() || context.isEmpty()){
             Toast.makeText(getActivity(), "please add some notes", Toast.LENGTH_SHORT).show();
             return;
         }
-        SimpleDateFormat formatter = new SimpleDateFormat("EEE, d MM yyyy HH:mm a");
-        Date date = new Date();
-
+//        SimpleDateFormat formatter = new SimpleDateFormat("EEE, d MM yyyy HH:mm a");
+//        Date date = new Date();
+        String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
         notesViewModel.saveNote(new Note(title, context, date));
         notesViewModel.noteUserData.observe(AddNotesFragment.this, status -> {
             if(status.getStatus()){

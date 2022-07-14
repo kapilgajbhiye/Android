@@ -5,13 +5,17 @@
       <map>
         <entry key="..\:/Users/PRO/.gradle/caches/transforms-3/e84792a16814e572b147be1ee4f0accc/transformed/core-1.7.0/res/layout/custom_dialog.xml" value="0.25104166666666666" />
         <entry key="..\:/Users/PRO/AndroidStudioProjects/MyNotes/app/src/main/res/drawable/edittextstyle.xml" value="0.2035" />
+        <entry key="..\:/Users/PRO/AndroidStudioProjects/MyNotes/app/src/main/res/layout/activity_edit_notes.xml" value="0.23697916666666666" />
         <entry key="..\:/Users/PRO/AndroidStudioProjects/MyNotes/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/PRO/AndroidStudioProjects/MyNotes/app/src/main/res/layout/activity_main2.xml" value="0.25104166666666666" />
         <entry key="..\:/Users/PRO/AndroidStudioProjects/MyNotes/app/src/main/res/layout/apptoolbar.xml" value="0.23278985507246377" />
         <entry key="..\:/Users/PRO/AndroidStudioProjects/MyNotes/app/src/main/res/layout/dialogfragment_profile.xml" value="0.25104166666666666" />
         <entry key="..\:/Users/PRO/AndroidStudioProjects/MyNotes/app/src/main/res/layout/drawer_header.xml" value="0.23278985507246377" />
+        <entry key="..\:/Users/PRO/AndroidStudioProjects/MyNotes/app/src/main/res/layout/edit_note_fragment.xml" value="0.18" />
         <entry key="..\:/Users/PRO/AndroidStudioProjects/MyNotes/app/src/main/res/layout/fragment_add_notes.xml" value="0.22" />
         <entry key="..\:/Users/PRO/AndroidStudioProjects/MyNotes/app/src/main/res/layout/fragment_archive.xml" value="0.23697916666666666" />
         <entry key="..\:/Users/PRO/AndroidStudioProjects/MyNotes/app/src/main/res/layout/fragment_dialog_profile.xml" value="0.25104166666666666" />
+        <entry key="..\:/Users/PRO/AndroidStudioProjects/MyNotes/app/src/main/res/layout/fragment_edit_note.xml" value="0.25104166666666666" />
         <entry key="..\:/Users/PRO/AndroidStudioProjects/MyNotes/app/src/main/res/layout/fragment_edit_profile_fragement.xml" value="0.25104166666666666" />
         <entry key="..\:/Users/PRO/AndroidStudioProjects/MyNotes/app/src/main/res/layout/fragment_google_sign_in.xml" value="0.24048913043478262" />
         <entry key="..\:/Users/PRO/AndroidStudioProjects/MyNotes/app/src/main/res/layout/fragment_home.xml" value="0.22" />
@@ -25,6 +29,7 @@
         <entry key="..\:/Users/PRO/AndroidStudioProjects/MyNotes/app/src/main/res/layout/note_list.xml" value="0.25104166666666666" />
         <entry key="..\:/Users/PRO/AndroidStudioProjects/MyNotes/app/src/main/res/menu/home_menu.xml" value="0.25" />
         <entry key="..\:/Users/PRO/AndroidStudioProjects/MyNotes/app/src/main/res/menu/menu.xml" value="0.25" />
+        <entry key="..\:/Users/PRO/AndroidStudioProjects/MyNotes/app/src/main/res/menu/option_menu.xml" value="0.25" />
         <entry key="..\:/Users/PRO/AndroidStudioProjects/MyNotes/app/src/main/res/menu/res_menu.xml" value="0.25104166666666666" />
       </map>
     </option>

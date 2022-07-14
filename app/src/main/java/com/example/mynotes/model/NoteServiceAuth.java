@@ -1,13 +1,9 @@
 package com.example.mynotes.model;
 
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.mynotes.Adapters.NoteListAdapter;
-import com.example.mynotes.view.NotesFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -15,14 +11,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class NoteServiceAuth {
@@ -31,24 +25,31 @@ public class NoteServiceAuth {
     private FirebaseAuth fAuth = FirebaseAuth.getInstance();
     private FirebaseUser fUser = fAuth.getCurrentUser();
     private FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
+    DocumentReference docref;
 
     public void storeNoteInFirebaseStorage(Note note, AuthListener listener){
 
         String  userId = fAuth.getCurrentUser().getUid();
-        DocumentReference docref = firebaseFirestore.collection("Users").document(userId).collection("note").document();
+        docref = firebaseFirestore.collection("Users").document(userId).collection("note").document();
         Map<String, Object> mynote = new HashMap<>();
         mynote.put("title", note.getTitle());
         mynote.put("note", note.getNote());
         mynote.put("date",note.getDate());
-        docref.set(mynote).addOnSuccessListener(new OnSuccessListener<Void>() {
+        note.setNoteId(docref.getId());
+        mynote.put("noteId",note.getNoteId());
+      //  Log.d("NoteService","id"+docref.getId());
+
+        docref.set(mynote).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onSuccess(Void unused) {
-                listener.onAuthComplete(true, "Data added Successfully");
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-           listener.onAuthComplete(false, "Failed");
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    note.setNoteId(docref.getId());
+                    listener.onAuthComplete(true, "Data added Successfully");
+                }
+                else{
+                    listener.onAuthComplete(false, "Failed");
+                }
+
             }
         });
     }
@@ -61,12 +62,31 @@ public class NoteServiceAuth {
                 noteList = new ArrayList<>();
                if(task.isSuccessful() && task.getResult() != null ){
                     for(QueryDocumentSnapshot documentSnapshot: task.getResult()){
-                        Note note = new Note(documentSnapshot.getString("title"),documentSnapshot.getString("note"),documentSnapshot.getDate("date"));
+                        Note note = new Note(documentSnapshot.getString("title"),documentSnapshot.getString("note"),documentSnapshot.getString("date"),documentSnapshot.getString("noteId"));
                         noteList.add(note);
-                    //    Log.d("FetchData", "display date"+note.getDate());
+                     //   Log.d("FetchData", "display date"+note.getDate());
                         listener.onAuthComplete(true, "Fetch notes successfully", noteList);
                     }
                }
+            }
+        });
+    }
+
+    public void updateNoteOperation(Note note, AuthListener listener){
+        String  userId = fAuth.getCurrentUser().getUid();
+        Map<String, Object> notes = new HashMap<>();
+        notes.put("title", note.getTitle());
+        notes.put("note",note.getNote());
+        DocumentReference documentReference = firebaseFirestore.collection("Users").document(userId).collection("note").document(note.getNoteId());
+        documentReference.update(notes).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                listener.onAuthComplete(true, "note Updated Successfully");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                listener.onAuthComplete(false,"Failed");
             }
         });
     }

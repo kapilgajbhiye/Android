@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.core.view.MenuItemCompat;
@@ -15,6 +16,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.Navigation;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -22,17 +24,24 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.mynotes.Adapters.NoteListAdapter;
 import com.example.mynotes.R;
+import com.example.mynotes.model.Note;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class Home extends Fragment {
     private NavigationView nave;
     private ActionBarDrawerToggle toggle;
     private DrawerLayout drawerLayout;
     private Toolbar toolbar;
-
+    List<Note> notes = new ArrayList<>();
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -45,6 +54,7 @@ public class Home extends Fragment {
         toggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, toolbar, R.string.open, R.string.close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragmentcontainer, new NotesFragment()).commit();
         nave.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             Fragment temp;
@@ -84,9 +94,27 @@ public class Home extends Fragment {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch(item.getItemId()){
+
             case R.id.searchbar:
+
+                SearchView searchView = (SearchView) item.getActionView();
+                searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                       NoteListAdapter adapter = new NoteListAdapter();
+                       adapter.getFilter().filter(newText);
+                        return false;
+                    }
+                });
+
                 Toast.makeText(getContext(), "search", Toast.LENGTH_SHORT).show();
                 break;
+
             case R.id.grid_view:
                 Toast.makeText(getContext(), "grid", Toast.LENGTH_SHORT).show();
                 break;
@@ -96,8 +124,12 @@ public class Home extends Fragment {
         }
         return true;
     }
+
+
     public void opendialog(){
         DialogFragment_profile dialogFragment = new DialogFragment_profile();
         dialogFragment.show(getActivity().getSupportFragmentManager(),"dialog");
     }
+
+
 }

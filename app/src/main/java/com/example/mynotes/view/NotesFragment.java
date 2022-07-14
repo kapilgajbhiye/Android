@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -34,12 +35,15 @@ public class NotesFragment extends Fragment {
     private FirebaseAuth fAuth;
     private ArrayList<Note> noteList;
     private NotesViewModel notesViewModel;
+    private ImageView editBtn;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_notes, container, false);
         recyclerView = view.findViewById(R.id.recycleView1);
         floatingActionButton = view.findViewById(R.id.addBtn);
+        editBtn = view.findViewById(R.id.imageView_pen);
         fUser = FirebaseAuth.getInstance().getCurrentUser();
         fAuth = FirebaseAuth.getInstance();
         notesViewModel = new ViewModelProvider(this, new NotesViewModelFactory(new NoteServiceAuth())).get(NotesViewModel.class);
@@ -52,10 +56,11 @@ public class NotesFragment extends Fragment {
         });
 
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         firebaseFirestore = FirebaseFirestore.getInstance();
         noteList = new ArrayList<>();
-        noteListAdapter = new NoteListAdapter(getContext(), noteList);
+        noteListAdapter = new NoteListAdapter(getActivity(), noteList);
+       // Log.d("FetchingDate", "date"+noteList.size());
         recyclerView.setAdapter(noteListAdapter);
         fetchNotesFromFireStore();
         return view;
@@ -72,4 +77,5 @@ public class NotesFragment extends Fragment {
             }
         });
     }
+
 }
